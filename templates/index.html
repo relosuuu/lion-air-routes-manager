@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lion Group VA</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="brand">
+    <img src="{{ url_for('static', filename='assets/logo.webp') }}" alt="Lion Group VA">
+    <div class="brand-text">
+      <strong>Lion Group VA</strong>
+      <span>Virtual Airlines</span>
+    </div>
+  </a>
+</header>
+
+<main class="container">
+
+  <a href="{{ url_for('airline_page', airline='lion') }}" class="airline-card">
+  <img src="{{ url_for('static', filename='assets/lion-air.png') }}" alt="Lion Air">
+  <h2>Lion Air</h2>
+  <span class="arrow">→</span>
+</a>
+
+<a href="{{ url_for('airline_page', airline='batik') }}" class="airline-card">
+  <img src="{{ url_for('static', filename='assets/batik-air.png') }}" alt="Batik Air">
+  <h2>Batik Air</h2>
+  <span class="arrow">→</span>
+</a>
+
+<a href="{{ url_for('airline_page', airline='superairjet') }}" class="airline-card">
+  <img src="{{ url_for('static', filename='assets/superairjet.png') }}" alt="Super Air Jet">
+  <h2>Super Air Jet</h2>
+  <span class="arrow">→</span>
+</a>
+
+<a href="{{ url_for('airline_page', airline='wings') }}" class="airline-card">
+  <img src="{{ url_for('static', filename='assets/wings-air.png') }}" alt="Wings Air">
+  <h2>Wings Air</h2>
+  <span class="arrow">→</span>
+</a>
+
+</main>
+
+<p class="footer-text">
+  Select an airline above to explore their complete route network and destinations
+</p>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Route Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="nav-left">
+    <!-- Back arrow goes to airline page -->
+    <a href="{{ url_for('airline_page', airline=airline) }}" class="back-btn">←</a>
+
+    <!-- Logo goes home -->
+    <a href="{{ url_for('index') }}" class="brand">
+      <img src="{{ url_for('static', filename='assets/logo.webp') }}" alt="Lion Group VA">
+      <div class="brand-text">
+        <strong>Lion Group VA</strong>
+        <span id="pageSubtitle"></span>
+      </div>
+    </a>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="form-card">
+    <h1 id="formTitle"></h1>
+
+    <form method="POST" action="{{ url_for('generate') }}">
+
+      <input type="hidden" name="airline" value="{{ airline }}">
+      <input type="hidden" name="type" value="{{ route_type }}">
+
+      <label>Departure Airport (ICAO)</label>
+      <input type="text" name="departure" placeholder="e.g. WIII" required>
+
+      {% if route_type == "single" %}
+      <div>
+        <label>Select Aircraft Type</label>
+        <select name="aircraft" required>
+          <option value="">-- Choose Aircraft --</option>
+          <option value="B739">B737-900 </option>
+          <option value="B38M">B737 MAX 8</option>
+          <option value="A320">A320-200</option>
+          <option value="A339">A330-900neo </option>
+          <option value="ATR">ATR 72-600</option>
+        </select>
+      </div>
+      {% endif %}
+
+      <button type="submit" class="primary-btn">Generate Route</button>
+
+    </form>
+  </div>
+
+  {% if result %}
+  <div class="result-card">
+    <h2>Generated Route</h2>
+    <pre>{{ result }}</pre>
+  </div>
+  {% endif %}
+
+</main>
+
+<script>
+  const type = document.querySelector('input[name="type"]').value;
+
+  const titles = {
+    random: "Random Route Generator",
+    single: "Single Aircraft Route Generator",
+    mixed:  "Mixed Aircraft Route Generator"
+  };
+
+  document.getElementById("formTitle").textContent = titles[type] || "Route Generator";
+  document.getElementById("pageSubtitle").textContent = titles[type] || "";
+</script>
+
+</body>
+</html>

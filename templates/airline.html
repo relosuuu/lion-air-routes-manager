@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Route Type</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="nav-left">
+    <!-- Back arrow goes home -->
+    <a href="{{ url_for('index') }}" class="back-btn">←</a>
+
+    <!-- Logo also goes home -->
+    <a href="{{ url_for('index') }}" class="brand">
+      <img src="{{ url_for('static', filename='assets/logo.webp') }}">
+      <div class="brand-text">
+        <strong>Lion Group VA</strong>
+        <span>Virtual Airlines</span>
+      </div>
+    </a>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="selected-airline">
+    {% if airline == "lion" %}
+      <img src="{{ url_for('static', filename='assets/lion-air.png') }}"><h1>Lion Air</h1>
+    {% elif airline == "batik" %}
+      <img src="{{ url_for('static', filename='assets/batik-air.png') }}"><h1>Batik Air</h1>
+    {% elif airline == "superairjet" %}
+      <img src="{{ url_for('static', filename='assets/superairjet.png') }}"><h1>Super Air Jet</h1>
+    {% elif airline == "wings" %}
+      <img src="{{ url_for('static', filename='assets/wings-air.png') }}"><h1>Wings Air</h1>
+    {% endif %}
+  </div>
+
+  <a href="{{ url_for('route_form', airline=airline, type='random') }}" class="option-card">
+    <div>
+      <h2>Random Route</h2>
+      <p>Generate a fully random single-leg route.</p>
+    </div>
+    <span class="arrow">→</span>
+  </a>
+
+  <a href="{{ url_for('route_form', airline=airline, type='single') }}" class="option-card">
+    <div>
+      <h2>Single Aircraft</h2>
+      <p>Multi-leg route using one aircraft type.</p>
+    </div>
+    <span class="arrow">→</span>
+  </a>
+
+  <a href="{{ url_for('route_form', airline=airline, type='mixed') }}" class="option-card">
+    <div>
+      <h2>Mixed Aircraft</h2>
+      <p>Multi-leg route with multiple aircraft types.</p>
+    </div>
+    <span class="arrow">→</span>
+  </a>
+
+</main>
+
+<p class="footer-text">Choose how you want routes to be generated</p>
+
+</body>
+</html>
