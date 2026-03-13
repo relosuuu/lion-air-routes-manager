@@ -4,7 +4,8 @@ import random
 
 app = Flask(__name__)
 
-DB = "routes.db"
+import os
+DB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "routes.db")
 
 
 # =========================
@@ -35,6 +36,39 @@ def get_direct_routes(airline, origin, aircraft=None):
     return rows
 
 
+def get_aircraft_for_airline(airline):
+    """Return sorted list of distinct aircraft types for a given airline.
+    Filters out any corrupted rows where a flight time ended up in the aircraft column.
+    """
+    conn = sqlite3.connect(DB)
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT DISTINCT aircraft
+        FROM routes
+        WHERE airline = ? COLLATE NOCASE
+        ORDER BY aircraft
+    """, (airline,))
+    rows = cur.fetchall()
+    conn.close()
+    # Filter out anything that looks like a time (e.g. "01:30", "0:50")
+    return [r[0] for r in rows if ":" not in r[0]]
+
+
+def get_random_origin(airline):
+    """Return a random origin airport for the given airline."""
+    conn = sqlite3.connect(DB)
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT DISTINCT origin FROM routes
+        WHERE airline = ? COLLATE NOCASE
+        ORDER BY RANDOM()
+        LIMIT 1
+    """, (airline,))
+    row = cur.fetchone()
+    conn.close()
+    return row[0] if row else ""
+
+
 def parse_time(t):
     try:
         parts = t.strip().split(":")
@@ -51,8 +85,6 @@ def parse_time(t):
 def generate_multi_leg(airline, departure, max_minutes=480, aircraft=None, allow_change=False):
     """
     Build a multi-leg route aiming for 3-5 legs close to max_minutes total.
-
-    Strategy:
     - While remaining time > 150 min: pick SHORT legs (<=120 min) to stack hops.
     - When remaining time <= 150 min: pick leg closest to remaining time.
     - Never revisit an airport.
@@ -78,7 +110,6 @@ def generate_multi_leg(airline, departure, max_minutes=480, aircraft=None, allow
                 None if allow_change else aircraft
             )
 
-            # Filter: no revisits, valid time, must fit remaining budget
             routes = [
                 r for r in routes
                 if r[0] not in visited
@@ -90,23 +121,21 @@ def generate_multi_leg(airline, departure, max_minutes=480, aircraft=None, allow
                 break
 
             if remaining > 150:
-                # Prefer short legs to keep chaining hops
                 short = [r for r in routes if parse_time(r[2]) <= 120]
                 pool = short if short else routes
                 pool = sorted(pool, key=lambda r: parse_time(r[2]))
                 candidates = pool[:5]
             else:
-                # Pick leg that fills remaining time most snugly
                 routes = sorted(routes, key=lambda r: abs(parse_time(r[2]) - remaining))
                 candidates = routes[:3]
 
             dest, ac, time = random.choice(candidates)
             route_chain.append((current, dest, ac, time))
             total_minutes += parse_time(time)
-            visited.add(dest)
+            visited.add(current)   # block where we just were
+            last_visited = current  # track for bounce prevention
             current = dest
 
-        # Keep attempt with most legs; tiebreak by total time
         if len(route_chain) > len(best_chain) or (
             len(route_chain) == len(best_chain) and total_minutes > best_total
         ):
@@ -134,11 +163,21 @@ def airline_page():
 def route_form():
     airline = request.args.get("airline")
     route_type = request.args.get("type")
+    aircraft_list = get_aircraft_for_airline(airline) if route_type == "single" else []
     return render_template(
         "route-form.html",
         airline=airline,
-        route_type=route_type
+        route_type=route_type,
+        aircraft_list=aircraft_list
     )
+
+
+@app.route("/random-origin")
+def random_origin():
+    from flask import jsonify
+    airline = request.args.get("airline")
+    origin = get_random_origin(airline)
+    return jsonify({"origin": origin})
 
 
 @app.route("/generate", methods=["POST"])
@@ -147,20 +186,33 @@ def generate():
     route_type = request.form.get("type")
     departure = request.form.get("departure")
     aircraft = request.form.get("aircraft")
+    aircraft_list = get_aircraft_for_airline(airline) if route_type == "single" else []
 
     if not departure:
         return render_template(
             "route-form.html",
             airline=airline,
             route_type=route_type,
+            aircraft_list=aircraft_list,
             result="Please enter departure ICAO"
         )
 
     departure = departure.strip().upper()
 
+    # If user typed "auto", pick a random origin for this airline
+    if departure == "AUTO":
+        departure = get_random_origin(airline)
+        if not departure:
+            return render_template(
+                "route-form.html",
+                airline=airline,
+                route_type=route_type,
+                aircraft_list=aircraft_list,
+                result="No airports found for this airline."
+            )
+
     if route_type == "random":
         routes = get_direct_routes(airline, departure, None)
-
         if not routes:
             result = f"No routes found from {departure} for {airline}. Check the ICAO code."
         else:
@@ -173,15 +225,13 @@ def generate():
                 "route-form.html",
                 airline=airline,
                 route_type=route_type,
+                aircraft_list=aircraft_list,
                 result="Please select an aircraft type."
             )
 
         chain, total = generate_multi_leg(
-            airline,
-            departure,
-            max_minutes=480,
-            aircraft=aircraft,
-            allow_change=False
+            airline, departure, max_minutes=480,
+            aircraft=aircraft, allow_change=False
         )
 
         if not chain:
@@ -190,16 +240,12 @@ def generate():
             result = ""
             for o, d, ac, t in chain:
                 result += f"{o} → {d} | {ac} | {t}\n"
-            hours = total // 60
-            minutes = total % 60
+            hours, minutes = total // 60, total % 60
             result += f"\nTotal Time: {hours:02d}:{minutes:02d}"
 
     elif route_type == "mixed":
         chain, total = generate_multi_leg(
-            airline,
-            departure,
-            max_minutes=480,
-            allow_change=True
+            airline, departure, max_minutes=480, allow_change=True
         )
 
         if not chain:
@@ -208,8 +254,7 @@ def generate():
             result = ""
             for o, d, ac, t in chain:
                 result += f"{o} → {d} | {ac} | {t}\n"
-            hours = total // 60
-            minutes = total % 60
+            hours, minutes = total // 60, total % 60
             result += f"\nTotal Time: {hours:02d}:{minutes:02d}"
 
     else:
@@ -219,6 +264,7 @@ def generate():
         "route-form.html",
         airline=airline,
         route_type=route_type,
+        aircraft_list=aircraft_list,
         result=result
     )
 

@@ -11,10 +11,7 @@
 
 <header class="topbar">
   <div class="nav-left">
-    <!-- Back arrow goes to airline page -->
     <a href="{{ url_for('airline_page', airline=airline) }}" class="back-btn">←</a>
-
-    <!-- Logo goes home -->
     <a href="{{ url_for('index') }}" class="brand">
       <img src="{{ url_for('static', filename='assets/logo.webp') }}" alt="Lion Group VA">
       <div class="brand-text">
@@ -36,18 +33,16 @@
       <input type="hidden" name="type" value="{{ route_type }}">
 
       <label>Departure Airport (ICAO)</label>
-      <input type="text" name="departure" placeholder="e.g. WIII" required>
+      <input type="text" name="departure" placeholder="e.g. WIII or 'auto'" required>
 
       {% if route_type == "single" %}
       <div>
         <label>Select Aircraft Type</label>
         <select name="aircraft" required>
           <option value="">-- Choose Aircraft --</option>
-          <option value="B739">B737-900 </option>
-          <option value="B38M">B737 MAX 8</option>
-          <option value="A320">A320-200</option>
-          <option value="A339">A330-900neo </option>
-          <option value="ATR">ATR 72-600</option>
+          {% for ac in aircraft_list %}
+            <option value="{{ ac }}">{{ ac }}</option>
+          {% endfor %}
         </select>
       </div>
       {% endif %}
@@ -68,15 +63,32 @@
 
 <script>
   const type = document.querySelector('input[name="type"]').value;
+  const airline = document.querySelector('input[name="airline"]').value;
 
   const titles = {
     random: "Random Route Generator",
     single: "Single Aircraft Route Generator",
     mixed:  "Mixed Aircraft Route Generator"
   };
-
   document.getElementById("formTitle").textContent = titles[type] || "Route Generator";
   document.getElementById("pageSubtitle").textContent = titles[type] || "";
+
+  async function randomDeparture() {
+    const btn = document.querySelector(".auto-btn");
+    btn.textContent = "...";
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(`/random-origin?airline=${encodeURIComponent(airline)}`);
+      const data = await res.json();
+      document.getElementById("departureInput").value = data.origin;
+    } catch (e) {
+      alert("Could not fetch a random airport.");
+    } finally {
+      btn.textContent = "🎲 Auto";
+      btn.disabled = false;
+    }
+  }
 </script>
 
 </body>

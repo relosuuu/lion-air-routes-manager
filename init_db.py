@@ -410,14 +410,595 @@ data_batik_nonhub = [
     ("WAHI", "WMKK", "A320", "02:30"),
 ]
 
+# =========================
+# SUPER AIR JET DATA
+# =========================
+data_super_jakarta = [
+("WIII","WAPP","A320","03:10"),
+("WIII","WILL","A320","00:50"),
+("WIII","WAHS","A320","01:10"),
+("WIII","WIPP","A320","01:10"),
+("WIII","WIKK","A320","01:10"),
+("WIII","WIKT","A320","01:10"),
+("WIII","WAHI","A320","01:15"),
+("WIII","WAHQ","A320","01:20"),
+("WIII","WIJJ","A320","01:30"),
+("WIII","WARR","A320","01:30"),
+("WIII","WIGG","A320","01:30"),
+("WIII","WIOO","A320","01:40"),
+("WIII","WIDD","A320","01:45"),
+("WIII","WADY","A320","01:50"),
+("WIII","WADD","A320","01:50"),
+("WIII","WIBB","A320","01:50"),
+("WIII","WIEE","A320","01:50"),
+("WIII","WAOO","A320","01:50"),
+("WIII","WIKD","A320","00:45"),
+("WIII","WAEE","A320","03:40"),
+("WIII","WADL","A320","02:00"),
+("WIII","WIMN","A320","02:00"),
+("WIII","WASS","A320","03:35"),
+("WIII","WIMM","A320","02:20"),
+("WIII","WAAA","A320","02:20"),
+("WIII","WAJJ","A320","05:15"),
+("WIII","WAFF","A320","02:40"),
+("WIII","WIOD","A320","01:20"),
+("WIII","WALL","A320","02:20"),
+("WAPP","WIII","A320","03:10"),
+("WALL","WAQQ","A320","01:10"),
+("WALL","WARD","A320","01:20"),
+("WALL","WAAA","A320","01:20"),
+("WALL","WIOO","A320","01:40"),
+("WALL","WARR","A320","01:45"),
+("WALL","WAMM","A320","01:50"),
+("WALL","WAHI","A320","02:10"),
+("WALL","WIII","A320","02:20"),
+("WALL","WICA","A320","02:20"),
+
+("WILL","WIMM","A320","01:41"),
+("WILL","WIII","A320","00:50"),
+
+("WAOO","WARR","A320","01:10"),
+("WAOO","WAHI","A320","01:40"),
+("WAOO","WIII","A320","01:50"),
+("WAOO","WICA","A320","01:50"),
+
+("WADY","WIII","A320","01:50"),
+
+("WITT","WMKK","A320","02:28"),
+("WITT","WIDD","A320","02:00"),
+("WITT","WIMM","A320","01:13"),
+
+("WIGG","WIDD","A320","01:15"),
+("WIGG","WIII","A320","01:30"),
+
+("WIDD","WAHI","A320","02:00"),
+("WIDD","WIBB","A320","00:50"),
+("WIDD","WIEE","A320","01:10"),
+("WIDD","WIII","A320","01:45"),
+("WIDD","WAHS","A320","02:00"),
+("WIDD","WIMN","A320","01:10"),
+("WIDD","WITT","A320","02:00"),
+("WIDD","WICA","A320","02:00"),
+("WIDD","WADL","A320","02:30"),
+("WIDD","WIJJ","A320","00:40"),
+("WIDD","WIPK","A320","00:50"),
+
+("WADD","WARR","A320","00:50"),
+("WADD","WAAA","A320","01:30"),
+("WADD","WAHQ","A320","01:30"),
+("WADD","WICA","A320","01:45"),
+("WADD","WIII","A320","01:50"),
+
+("WIJJ","WIMM","A320","01:15"),
+("WIJJ","WIII","A320","01:30"),
+("WIJJ","WAHI","A320","01:30"),
+("WIJJ","WIDD","A320","00:40"),
+
+("WAJJ","WAUU","A320","01:30"),
+("WAJJ","WIII","A320","05:15"),
+
+("WAWW","WAAA","A320","00:50"),
+("WAWW","WIII","A320","02:30"),
+
+("WMKK","WIBB","A320","00:50"),
+("WMKK","WIEE","A320","01:15"),
+("WMKK","WARR","A320","02:30"),
+("WMKK","WADL","A320","02:50"),
+("WMKK","WITT","A320","02:30"),
+
+("WATT","WARR","A320","02:20"),
+
+("WATO","WARR","A320","01:40"),
+
+("WADL","WARR","A320","01:10"),
+("WADL","WAHI","A320","01:40"),
+("WADL","WIII","A320","02:00"),
+("WADL","WIDD","A320","02:30"),
+
+("WAUU","WAJJ","A320","01:20"),
+("WAUU","WAAA","A320","02:40"),
+("WAUU","WASS","A320","01:05"),
+
+("WICA","WIPP","A320","01:10"),
+("WICA","WAOO","A320","01:40"),
+("WICA","WADD","A320","01:45"),
+("WICA","WIDD","A320","02:00"),
+("WICA","WAAA","A320","02:20"),
+("WICA","WALL","A320","02:20"),
+("WICA","WIMM","A320","02:30"),
+
+("WAAA","WAWW","A320","00:50"),
+("WAAA","WALL","A320","01:20"),
+("WAAA","WALS","A320","01:20"),
+("WAAA","WADD","A320","01:30"),
+("WAAA","WARR","A320","01:45"),
+("WAAA","WAEE","A320","02:00"),
+("WAAA","WIII","A320","02:20"),
+("WAAA","WAUU","A320","02:30"),
+("WAAA","WICA","A320","02:20"),
+("WAAA","WASS","A320","00:45"),
+
+("WAMM","WALL","A320","01:50"),
+
+("WIMM","WIEE","A320","01:10"),
+("WIMM","WIPP","A320","01:50"),
+("WIMM","WIII","A320","02:20"),
+("WIMM","WICA","A320","02:30"),
+("WIMM","WITT","A320","01:15"),
+("WIMM","WIJJ","A320","01:15"),
+("WIMM","WILL","A320","01:40"),
+("WIMM","WARR","A320","03:00"),
+
+("WAGG","WAHI","A320","01:45"),
+
+("WIKK","WIII","A320","01:10"),
+
+("WIPK","WAHI","A320","01:22"),
+("WIPK","WARR","A320","01:25"),
+("WIPK","WIKD","A320","00:20"),
+("WIPK","WIPP","A320","00:30"),
+("WIPK","WIDD","A320","00:50"),
+
+("WIEE","WAHS","A320","02:00"),
+("WIEE","WIDD","A320","01:10"),
+("WIEE","WAHI","A320","02:00"),
+("WIEE","WIMM","A320","01:10"),
+("WIEE","WMKK","A320","01:15"),
+("WIEE","WIII","A320","01:50"),
+
+("WIPP","WIII","A320","01:10"),
+("WIPP","WICA","A320","01:10"),
+("WIPP","WAHI","A320","01:45"),
+("WIPP","WIMM","A320","01:50"),
+("WIPP","WIPK","A320","00:25"),
+
+("WAFF","WIII","A320","02:40"),
+
+("WIBB","WIDD","A320","00:50"),
+("WIBB","WMKK","A320","00:50"),
+("WIBB","WIII","A320","01:50"),
+("WIBB","WAHS","A320","02:00"),
+
+("WIOO","WIII","A320","01:40"),
+("WIOO","WALL","A320","01:40"),
+("WIOO","WAHQ","A320","01:45"),
+("WIOO","WAHI","A320","02:10"),
+
+("WALS","WAAA","A320","01:20"),
+("WALS","WARR","A320","01:50"),
+("WALS","WAHI","A320","02:20"),
+
+("WAHS","WIII","A320","01:10"),
+("WAHS","WIEE","A320","02:00"),
+("WAHS","WIDD","A320","02:00"),
+("WAHS","WIBB","A320","01:45"),
+
+("WIMN","WIDD","A320","01:10"),
+("WIMN","WIII","A320","02:00"),
+
+("WIOD","WIII","A320","01:20"),
+
+("WASS","WAAA","A320","02:15"),
+("WASS","WAUU","A320","00:45"),
+("WASS","WIII","A320","03:35"),
+
+("WIKD","WIPK","A320","00:30"),
+("WIKD","WIII","A320","00:43"),
+
+("WAEE","WAAA","A320","01:35"),
+("WAEE","WIII","A320","03:40"),
+
+("WAHI","WIDD","A320","02:00"),
+("WAHI","WIPK","A320","01:12"),
+("WAHI","WIJJ","A320","01:30"),
+("WAHI","WIEE","A320","02:00"),
+("WAHI","WALS","A320","01:45"),
+("WAHI","WIPP","A320","01:20"),
+("WAHI","WAGG","A320","01:45")
+]
+
+# =========================
+# WINGS AIR DATA
+# =========================
+data_wings_abadi = [
+("WATM","WATT","ATR72","01:30"),
+("WAPP","WAPN","ATR72","00:50"),
+("WAPP","WAPD","ATR72","01:30"),
+("WAPP","WASO","ATR72","01:30"),
+("WAPP","WASS","ATR72","01:40"),
+("WAPP","WAPS","ATR72","01:40"),
+("WAPP","WABI","ATR72","01:40"),
+("WAPP","WAPF","ATR72","01:40"),
+
+("WATA","WATT","ATR72","01:00"),
+
+("WASO","WAPP","ATR72","01:30"),
+
+("WATW","WATT","ATR72","01:20"),
+
+("WALL","WALE","ATR72","01:00"),
+("WALL","WAQD","ATR72","01:20"),
+("WALL","WAFJ","ATR72","01:20"),
+("WALL","WAQT","ATR72","01:25"),
+("WALL","WAQQ","ATR72","01:30"),
+("WALL","WAGG","ATR72","01:30"),
+("WALL","WAFF","ATR72","01:30"),
+("WALL","WAOO","ATR72","01:30"),
+("WALL","WAQM","ATR72","01:30"),
+("WALL","WAFT","ATR72","01:30"),
+("WALL","WAMM","ATR72","02:00"),
+
+("WITT","WIMM","ATR72","01:30"),
+
+("WILL","WILP","ATR72","01:00"),
+("WILL","WIHP","ATR72","01:00"),
+("WILL","WIPP","ATR72","01:20"),
+("WILL","WIGG","ATR72","01:20"),
+("WILL","WIJJ","ATR72","01:30"),
+("WILL","WICC","ATR72","01:30"),
+
+("WICC","WIHH","ATR72","00:50"),
+("WICC","WAHH","ATR72","01:20"),
+("WICC","WAHS","ATR72","01:20"),
+("WICC","WILL","ATR72","01:30"),
+("WICC","WAHQ","ATR72","01:30"),
+("WICC","WIKK","ATR72","01:40"),
+("WICC","WIKT","ATR72","01:40"),
+("WICC","WARA","ATR72","01:50"),
+("WICC","WIPP","ATR72","01:50"),
+("WICC","WARR","ATR72","01:50"),
+("WICC","WIGG","ATR72","02:20"),
+("WICC","WIJJ","ATR72","02:30"),
+
+("WAOO","WAOK","ATR72","00:50"),
+("WAOO","WAGS","ATR72","01:00"),
+("WAOO","WAGB","ATR72","01:20"),
+("WAOO","WALL","ATR72","01:30"),
+
+("WADY","WARR","ATR72","01:00"),
+
+("WIDD","WIDT","ATR72","00:50"),
+("WIDD","WIDN","ATR72","00:50"),
+("WIDD","WIDS","ATR72","01:00"),
+("WIDD","WIBD","ATR72","01:00"),
+("WIDD","WIDL","ATR72","01:10"),
+("WIDD","WIBB","ATR72","01:30"),
+("WIDD","WIKK","ATR72","01:30"),
+("WIDD","WIGG","ATR72","01:30"),
+("WIDD","WIJJ","ATR72","01:30"),
+("WIDD","WIPP","ATR72","01:30"),
+("WIDD","WIDO","ATR72","01:40"),
+("WIDD","WIOO","ATR72","01:50"),
+
+("WAOC","WAAA","ATR72","01:30"),
+
+("WAWB","WAWW","ATR72","00:50"),
+("WAWB","WAAA","ATR72","01:20"),
+
+("WIGG","WIGM","ATR72","01:00"),
+("WIGG","WIPP","ATR72","01:10"),
+("WIGG","WILL","ATR72","01:20"),
+("WIGG","WIDD","ATR72","01:30"),
+("WIGG","WIEE","ATR72","01:30"),
+("WIGG","WICC","ATR72","02:20"),
+
+("WADB","WADL","ATR72","01:00"),
+("WADB","WADD","ATR72","01:20"),
+
+("WRSC","WIHP","ATR72","02:00"),
+
+("WAEM","WAEE","ATR72","00:50"),
+
+("WAFY","WAFF","ATR72","01:20"),
+
+("WAVD","WAJJ","ATR72","01:30"),
+
+("WADD","WADL","ATR72","00:50"),
+("WADD","WADB","ATR72","01:20"),
+("WADD","WATK","ATR72","01:30"),
+("WADD","WATO","ATR72","01:30"),
+("WADD","WARA","ATR72","01:30"),
+("WADD","WATC","ATR72","01:40"),
+("WADD","WAHS","ATR72","01:40"),
+("WADD","WATU","ATR72","01:40"),
+("WADD","WAHQ","ATR72","01:50"),
+("WADD","WAHH","ATR72","01:50"),
+
+("WAPD","WAPP","ATR72","01:30"),
+
+("WIBD","WIBB","ATR72","00:50"),
+("WIBD","WIDD","ATR72","01:00"),
+("WIBD","WIMM","ATR72","01:00"),
+
+("WATE","WATO","ATR72","01:00"),
+("WATE","WATT","ATR72","01:00"),
+
+("WAKG","WAYY","ATR72","01:00"),
+("WAKG","WAKK","ATR72","01:00"),
+
+("WASF","WASS","ATR72","01:00"),
+("WASF","WAUU","ATR72","01:20"),
+("WASF","WAPP","ATR72","01:40"),
+
+("WAEG","WAMM","ATR72","01:20"),
+
+("WAMG","WAMM","ATR72","01:20"),
+("WAMG","WAFF","ATR72","01:50"),
+
+("WIMB","WIMM","ATR72","01:10"),
+("WIMB","WIEE","ATR72","01:20"),
+
+("WIHH","WICC","ATR72","00:50"),
+("WIHH","WICA","ATR72","00:50"),
+("WIHH","WICM","ATR72","01:00"),
+
+("WIJJ","WIBB","ATR72","01:00"),
+("WIJJ","WIJB","ATR72","01:00"),
+("WIJJ","WIPP","ATR72","01:20"),
+("WIJJ","WIDD","ATR72","01:30"),
+("WIJJ","WIEE","ATR72","01:30"),
+("WIJJ","WILL","ATR72","01:30"),
+("WIJJ","WIMM","ATR72","01:50"),
+("WIJJ","WICC","ATR72","02:30"),
+
+("WAJJ","WAVV","ATR72","01:20"),
+("WAJJ","WAVD","ATR72","01:30"),
+("WAJJ","WAKT","ATR72","01:30"),
+("WAJJ","WABI","ATR72","01:40"),
+
+("WARE","WARR","ATR72","01:00"),
+
+("WASK","WASS","ATR72","01:00"),
+
+("WAQT","WAQQ","ATR72","01:00"),
+("WAQT","WALS","ATR72","01:00"),
+("WAQT","WALL","ATR72","01:25"),
+
+("WAEK","WAMM","ATR72","01:20"),
+
+("WAHU","WAHS","ATR72","00:50"),
+
+("WAWW","WAWB","ATR72","00:50"),
+("WAWW","WAWD","ATR72","01:00"),
+("WAWW","WAFO","ATR72","01:20"),
+]
+
+# =========================
+# THAI LION DATA
+# =========================
+data_thai_bangkok = [
+("VTBD","VTUK","B739","00:50"),
+("VTBD","VTPP","B739","00:50"),
+("VTBD","VTUD","B739","01:00"),
+("VTBD","VTUU","B739","01:00"),
+
+("VTBD","VTCC","B739","01:20"), ("VTBD","VTCC","A333","01:20"), ("VTBD","VTCC","A339","01:20"),
+
+("VTBD","VTSG","B739","01:30"), ("VTBD","VTSG","A333","01:30"), ("VTBD","VTSG","A339","01:30"),
+("VTBD","VTSF","B739","01:30"),
+
+("VTBD","VTSS","B739","01:30"), ("VTBD","VTSS","A333","01:30"), ("VTBD","VTSS","A339","01:30"),
+("VTBD","VTSP","B739","01:30"), ("VTBD","VTSP","A333","01:30"), ("VTBD","VTSP","A339","01:30"),
+
+("VTBD","VTCT","B739","01:30"),
+("VTBD","VTST","B739","01:30"),
+("VTBD","VYYY","B739","01:30"),
+
+("VTBD","VTSB","B739","01:40"),
+
+("VTBD","VVNB","B739","01:50"),
+
+("VTBD","WIDD","B739","06:15"),
+
+("VTBD","WSSS","B739","02:00"), ("VTBD","WSSS","A333","02:00"), ("VTBD","WSSS","A339","02:00"),
+("VTBD","WMKP","B739","02:00"),
+
+("VTBD","ZJHK","B739","02:20"),
+("VTBD","SJSY","B739","02:20"),
+
+("VTBD","VMMC","B739","02:40"),
+
+("VTBD","ZGSZ","B739","02:50"),
+("VTBD","VNKT","B739","02:50"),
+("VTBD","ZGHA","B739","02:50"),
+("VTBD","ZGGG","B739","02:50"),
+
+("VTBD","ZUCK","B739","03:00"),
+("VTBD","ZUUU","B739","03:00"),
+
+("VTBD","WIII","B739","03:30"),
+
+("VTBD","ZHHH","B739","03:30"),
+("VTBD","ZSCN","B739","03:30"), ("VTBD","ZSCN","A333","03:30"), ("VTBD","ZSCN","A339","03:30"),
+
+("VTBD","VCBI","B739","03:30"),
+
+("VTBD","RCTP","B739","03:30"), ("VTBD","RCTP","A333","03:30"), ("VTBD","RCTP","A339","03:30"),
+
+("VTBD","ZSNB","B739","03:40"),
+("VTBD","ZSNJ","B739","03:40"),
+("VTBD","ZLXY","B739","03:40"),
+
+("VTBD","WADD","B739","03:40"), ("VTBD","WADD","A333","03:40"), ("VTBD","WADD","A339","03:40"),
+
+("VTBD","ZHCC","B739","04:00"), ("VTBD","ZHCC","A333","04:00"), ("VTBD","ZHCC","A339","04:00"),
+("VTBD","VOBL","B739","04:00"),
+
+("VTBD","ZSPD","B739","04:30"), ("VTBD","ZSPD","A333","04:30"), ("VTBD","ZSPD","A339","04:30"),
+("VTBD","ZSCG","B739","04:30"),
+("VTBD","WAMM","B739","04:30"),
+
+("VTBD","VABB","B739","04:30"), ("VTBD","VABB","A333","04:30"), ("VTBD","VABB","A339","04:30"),
+
+("VTBD","ZSHC","B739","04:30"),
+
+("VTBD","ZSJN","B739","05:00"),
+
+("VTBD","RJFF","B739","05:30"), ("VTBD","RJFF","A333","05:30"), ("VTBD","RJFF","A339","05:30"),
+("VTBD","ZBTJ","B739","05:30"),
+
+("VTBD","RJBB","A333","06:20"), ("VTBD","RJBB","A339","06:20"),
+
+("VTBD","RJGG","B739","06:20"), ("VTBD","RJGG","A333","06:20"), ("VTBD","RJGG","A339","06:20"),
+
+("VTBD","RJAA","A333","06:30"), ("VTBD","RJAA","A339","06:30"),
+]
+
+# =========================
+# THAI LION NON HUB DATA
+# =========================
+data_thai_nonhub = [
+("WIDD","VTBD","B739","02:00"),
+("VOBL","VTBD","B739","04:00"),
+("ZGHA","VTBD","B739","02:50"),
+("ZSCG","VTBD","B739","04:30"),
+("ZUUU","VTBD","B739","03:00"),
+
+("VOMM","VTBS","A333","03:40"), ("VOMM","VTBS","A339","03:40"),
+
+("VTCC","VTBD","B739","01:20"), ("VTCC","VTBD","A333","01:20"), ("VTCC","VTBD","A339","01:20"),
+("VTCC","VTBU","B739","01:30"),
+("VTCC","ZGGG","B739","02:40"),
+("VTCC","VIDP","A333","04:15"), ("VTCC","VIDP","A339","04:15"),
+
+("VTCT","VTBD","B739","01:30"),
+
+("ZUCK","VTBD","B739","03:00"),
+("ZUCK","VTSP","B739","03:40"),
+
+("VCBI","VTBD","B739","03:30"),
+
+("WADD","VTBD","B739","03:40"), ("WADD","VTBD","A333","03:40"), ("WADD","VTBD","A339","03:40"),
+
+("RJFF","VTBD","B739","05:30"), ("RJFF","VTBD","A333","05:30"), ("RJFF","VTBD","A339","05:30"),
+
+("ZGGG","VTCC","B739","02:40"), ("ZGGG","VTCC","A333","02:40"), ("ZGGG","VTCC","A339","02:40"),
+("ZGGG","VTBD","B739","02:50"),
+
+("ZJHK","VTBU","B739","02:20"),
+("ZJHK","VTBD","B739","02:20"),
+
+("ZSHC","VTBD","B739","04:30"),
+("ZSHC","VTSP","B739","05:25"),
+
+("VVNB","VTBD","B739","01:50"),
+
+("VTSS","VTBD","B739","01:30"), ("VTSS","VTBD","A333","01:30"), ("VTSS","VTBD","A339","01:30"),
+
+("ZSOF","VTSP","B739","05:10"),
+
+("WIII","VTBD","B739","03:30"),
+
+("ZSJN","VTBD","B739","05:00"),
+
+("RJBB","VTBD","A333","06:20"), ("RJBB","VTBD","A339","06:20"),
+
+("VNKT","VTBD","B739","02:50"),
+
+("VTUK","VTBD","B739","00:50"),
+
+("VTSG","VTBD","B739","01:30"), ("VTSG","VTBD","A333","01:30"), ("VTSG","VTBD","A339","01:30"),
+
+("VMMC","VTBD","B739","02:40"),
+
+("WAMM","VTBD","B739","04:30"),
+
+("VABB","VTBD","B739","04:30"), ("VABB","VTBD","A333","04:30"), ("VABB","VTBD","A339","04:30"),
+
+("RJGG","VTBD","B739","06:20"), ("RJGG","VTBD","A333","06:20"), ("RJGG","VTBD","A339","06:20"),
+
+("VTSF","VTBD","B739","01:30"),
+
+("ZSCN","VTBD","B739","03:30"), ("ZSCN","VTBD","A333","03:30"), ("ZSCN","VTBD","A339","03:30"),
+
+("ZSNJ","VTBD","B739","03:40"),
+("ZSNJ","VTSP","B739","05:20"),
+
+("ZSNB","VTBD","B739","03:40"),
+
+("WMKP","VTBD","B739","02:00"),
+
+("VTPP","VTBD","B739","00:50"),
+
+("VTSP","VTBD","B739","01:30"), ("VTSP","VTBD","A333","01:30"), ("VTSP","VTBD","A339","01:30"),
+("VTSP","ZUCK","B739","03:40"),
+("VTSP","ZLXY","B739","05:00"),
+("VTSP","ZSOF","B739","05:10"),
+("VTSP","ZSNJ","B739","05:20"),
+("VTSP","ZSHC","B739","05:25"),
+("VTSP","ZBTJ","B739","05:40"),
+
+("ZSPD","VTBD","B739","04:30"), ("ZSPD","VTBD","A333","04:30"), ("ZSPD","VTBD","A339","04:30"),
+
+("ZGSZ","VTBD","B739","02:50"),
+
+("ZJSY","VTBD","B739","02:20"),
+
+("WSSS","VTBD","B739","02:00"), ("WSSS","VTBD","A333","02:00"), ("WSSS","VTBD","A339","02:00"),
+
+("VTSB","VTBD","B739","01:40"),
+
+("RCTP","VTBD","B739","03:30"), ("RCTP","VTBD","A333","03:30"), ("RCTP","VTBD","A339","03:30"),
+
+("RCTP","RJAA","B739","03:30"),
+("RJAA","RCTP","B739","03:30"),
+
+("ZBTJ","VTBD","B739","05:30"),
+("ZBTJ","VTSP","B739","05:40"),
+
+("RJAA","VTBD","A333","06:30"), ("RJAA","VTBD","A339","06:30"),
+
+("VTST","VTBD","B739","01:30"),
+
+("VTBU","VTCC","B739","01:30"),
+("VTBU","ZJHK","B739","02:20"),
+
+("VTUU","VTBD","B739","01:00"),
+]
 
 # =========================
 # INSERT ALL DATA
 # =========================
 
-data_lion_surabaya = normalize_data(data_lion_surabaya)
-data_lion_jakarta  = normalize_data(data_lion_jakarta)
-data_lion_nonhub   = normalize_data(data_lion_nonhub)
+# Normalize ALL datasets before inserting
+data_lion_jakarta     = normalize_data(data_lion_jakarta)
+data_lion_makassar    = normalize_data(data_lion_makassar)
+data_lion_surabaya    = normalize_data(data_lion_surabaya)
+data_lion_bali        = normalize_data(data_lion_bali)
+data_lion_balikpapan  = normalize_data(data_lion_balikpapan)
+data_lion_nonhub      = normalize_data(data_lion_nonhub)
+
+data_batik_jakarta    = normalize_data(data_batik_jakarta)
+data_batik_halim      = normalize_data(data_batik_halim)
+data_batik_makassar   = normalize_data(data_batik_makassar)
+data_batik_nonhub     = normalize_data(data_batik_nonhub)
+
+data_super_jakarta    = normalize_data(data_super_jakarta)
+
+data_wings_abadi      = normalize_data(data_wings_abadi)
+
+data_thai_bangkok     = normalize_data(data_thai_bangkok)
+data_thai_nonhub      = normalize_data(data_thai_nonhub)
 
 insert_routes("Lion",  data_lion_jakarta)
 insert_routes("Lion",  data_lion_makassar)
@@ -430,6 +1011,13 @@ insert_routes("Batik", data_batik_jakarta)
 insert_routes("Batik", data_batik_halim)
 insert_routes("Batik", data_batik_makassar)
 insert_routes("Batik", data_batik_nonhub)
+
+insert_routes("Super", data_super_jakarta)
+
+insert_routes("wings", data_wings_abadi)
+
+insert_routes("thai", data_thai_bangkok)
+insert_routes("thai", data_thai_nonhub)
 
 conn.commit()
 conn.close()
