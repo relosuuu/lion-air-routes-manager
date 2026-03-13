@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Route Generator</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
 <body>
@@ -28,7 +30,6 @@
     <h1 id="formTitle"></h1>
 
     <form method="POST" action="{{ url_for('generate') }}">
-
       <input type="hidden" name="airline" value="{{ airline }}">
       <input type="hidden" name="type" value="{{ route_type }}">
 
@@ -48,7 +49,6 @@
       {% endif %}
 
       <button type="submit" class="primary-btn">Generate Route</button>
-
     </form>
   </div>
 
@@ -57,14 +57,60 @@
     <h2>Generated Route</h2>
     <pre>{{ result }}</pre>
   </div>
+
+  {% if map_legs and map_legs != '[]' %}
+  <div class="map-card">
+    <h2>Route Map</h2>
+    <div id="routeMap"></div>
+  </div>
+
+  <script>
+    const airports = {{ map_airports|safe }};
+    const legs = {{ map_legs|safe }};
+
+    const map = L.map('routeMap');
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Draw route lines with arrows feel (dashed for multi-leg)
+    legs.forEach((leg, i) => {
+      L.polyline(leg, {
+        color: '#e11d48',
+        weight: 2.5,
+        opacity: 0.8
+      }).addTo(map);
+    });
+
+    // Draw numbered markers with ICAO labels
+    const bounds = [];
+    airports.forEach((ap, i) => {
+      bounds.push([ap.lat, ap.lon]);
+
+      const icon = L.divIcon({
+        className: '',
+        html: `<div class="map-marker">
+                 <div class="marker-dot">${i + 1}</div>
+                 <div class="marker-label">${ap.icao}</div>
+               </div>`,
+        iconAnchor: [14, 14]
+      });
+
+      L.marker([ap.lat, ap.lon], { icon }).addTo(map);
+    });
+
+    if (bounds.length > 0) {
+      map.fitBounds(bounds, { padding: [50, 50] });
+    }
+  </script>
+  {% endif %}
   {% endif %}
 
 </main>
 
 <script>
   const type = document.querySelector('input[name="type"]').value;
-  const airline = document.querySelector('input[name="airline"]').value;
-
   const titles = {
     random: "Random Route Generator",
     single: "Single Aircraft Route Generator",
@@ -72,23 +118,6 @@
   };
   document.getElementById("formTitle").textContent = titles[type] || "Route Generator";
   document.getElementById("pageSubtitle").textContent = titles[type] || "";
-
-  async function randomDeparture() {
-    const btn = document.querySelector(".auto-btn");
-    btn.textContent = "...";
-    btn.disabled = true;
-
-    try {
-      const res = await fetch(`/random-origin?airline=${encodeURIComponent(airline)}`);
-      const data = await res.json();
-      document.getElementById("departureInput").value = data.origin;
-    } catch (e) {
-      alert("Could not fetch a random airport.");
-    } finally {
-      btn.textContent = "🎲 Auto";
-      btn.disabled = false;
-    }
-  }
 </script>
 
 </body>

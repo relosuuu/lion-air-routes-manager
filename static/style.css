@@ -344,3 +344,173 @@ body {
     text-align: center;
   }
 }
+
+/* ==============================
+   INPUT ROW (departure + auto btn)
+   ============================== */
+.input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input-row input[type="text"] {
+  flex: 1;
+}
+
+.auto-btn {
+  padding: 12px 18px;
+  background: #f1f5f9;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #0f172a;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.auto-btn:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+.auto-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==============================
+   MAP CARD
+   ============================== */
+.map-card {
+  background: white;
+  border-radius: 20px;
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.map-card h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+#routeMap {
+  width: 100%;
+  height: 420px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1.5px solid #e2e8f0;
+}
+
+/* Marker styles */
+.map-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.marker-dot {
+  width: 28px;
+  height: 28px;
+  background: #e11d48;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.marker-label {
+  background: white;
+  color: #0f172a;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  #routeMap {
+    height: 300px;
+  }
+
+  .map-card {
+    padding: 24px 20px;
+  }
+}
+
+/* ==============================
+   MAP CARD
+   ============================== */
+.map-card {
+  background: white;
+  border-radius: 20px;
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.map-card h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+#routeMap {
+  width: 100%;
+  height: 420px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1.5px solid #e2e8f0;
+}
+
+.map-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.marker-dot {
+  width: 28px;
+  height: 28px;
+  background: #e11d48;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.marker-label {
+  background: white;
+  color: #0f172a;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  #routeMap { height: 300px; }
+  .map-card { padding: 24px 20px; }
+}

@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 import sqlite3
 import random
 import os
+import json
+from icao_coords import ICAO_COORDS
 
 app = Flask(__name__)
 
@@ -304,13 +306,34 @@ def generate():
     else:
         result = "Invalid route type"
         route_chain_for_map = []
+        route_chain_for_map = []
+
+    # Build map data from route chain
+    map_airports = []
+    map_legs = []
+    seen_icao = []
+    for o, d, ac, t in route_chain_for_map:
+        if o not in seen_icao:
+            seen_icao.append(o)
+            if o in ICAO_COORDS:
+                lat, lon = ICAO_COORDS[o]
+                map_airports.append({"icao": o, "lat": lat, "lon": lon})
+        if d not in seen_icao:
+            seen_icao.append(d)
+            if d in ICAO_COORDS:
+                lat, lon = ICAO_COORDS[d]
+                map_airports.append({"icao": d, "lat": lat, "lon": lon})
+        if o in ICAO_COORDS and d in ICAO_COORDS:
+            map_legs.append([list(ICAO_COORDS[o]), list(ICAO_COORDS[d])])
 
     return render_template(
         "route-form.html",
         airline=airline,
         route_type=route_type,
         aircraft_list=aircraft_list,
-        result=result
+        result=result,
+        map_airports=json.dumps(map_airports),
+        map_legs=json.dumps(map_legs)
     )
 
 
