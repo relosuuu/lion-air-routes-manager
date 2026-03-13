@@ -1,24 +1,11 @@
 from flask import Flask, render_template, request
 import sqlite3
 import random
-import os
 
 app = Flask(__name__)
 
+import os
 DB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "routes.db")
-
-
-# Major hubs per airline — destinations matching these get a slight priority boost
-AIRLINE_HUBS = {
-    "lion":        {"WIII", "WAAA", "WARR", "WADD", "WALL"},
-    "batik":       {"WIII", "WIHH", "WAAA", "WARR", "WADD", "WALL"},
-    "superairjet": {"WIII", "WAAA", "WARR", "WADD"},
-    "wings":       {"WIII", "WAAA", "WARR", "WADD"},
-    "thailion":    {"VTBD"},
-}
-
-def get_hubs(airline):
-    return AIRLINE_HUBS.get(airline.lower(), set())
 
 
 # =========================
@@ -63,6 +50,7 @@ def get_aircraft_for_airline(airline):
     """, (airline,))
     rows = cur.fetchall()
     conn.close()
+    # Filter out anything that looks like a time (e.g. "01:30", "0:50")
     return [r[0] for r in rows if ":" not in r[0]]
 
 
@@ -99,20 +87,17 @@ def generate_multi_leg(airline, departure, max_minutes=480, aircraft=None, allow
     Build a multi-leg route aiming for 3-5 legs close to max_minutes total.
     - While remaining time > 150 min: pick SHORT legs (<=120 min) to stack hops.
     - When remaining time <= 150 min: pick leg closest to remaining time.
-    - Avoids revisiting airports but allows returning if truly stuck.
-    - Hub destinations get a small priority boost (~2x more likely to be picked).
+    - Never revisit an airport.
     - Runs 3 attempts, returns the one with the most legs.
     """
     best_chain = []
     best_total = 0
-    hubs = get_hubs(airline)
 
     for _attempt in range(3):
         current = departure.upper()
         total_minutes = 0
         route_chain = []
-        visited = set()
-        last_visited = None
+        visited = {current}
 
         for _hop in range(8):
             remaining = max_minutes - total_minutes
@@ -125,55 +110,32 @@ def generate_multi_leg(airline, departure, max_minutes=480, aircraft=None, allow
                 None if allow_change else aircraft
             )
 
-            # Block only the airport we just came from to prevent A->B->A bouncing
-            blocked = {last_visited} if last_visited else set()
-
-            # First: prefer unvisited airports
-            forward_routes = [
+            routes = [
                 r for r in routes
-                if r[0] not in blocked
-                and r[0] not in visited
+                if r[0] not in visited
                 and parse_time(r[2]) > 0
                 and parse_time(r[2]) <= remaining
             ]
 
-            # If no fresh airports, allow revisiting anything except last stop
-            if not forward_routes:
-                forward_routes = [
-                    r for r in routes
-                    if r[0] not in blocked
-                    and parse_time(r[2]) > 0
-                    and parse_time(r[2]) <= remaining
-                ]
-
-            if not forward_routes:
+            if not routes:
                 break
 
             if remaining > 150:
-                # Prefer short legs to chain hops;
-                # if fewer than 2 short options exist, open up all lengths
-                short = [r for r in forward_routes if parse_time(r[2]) <= 120]
-                pool = short if len(short) >= 2 else forward_routes
+                short = [r for r in routes if parse_time(r[2]) <= 120]
+                pool = short if short else routes
                 pool = sorted(pool, key=lambda r: parse_time(r[2]))
                 candidates = pool[:5]
             else:
-                # Pick leg closest to remaining time to fill schedule
-                forward_routes = sorted(forward_routes, key=lambda r: abs(parse_time(r[2]) - remaining))
-                candidates = forward_routes[:3]
+                routes = sorted(routes, key=lambda r: abs(parse_time(r[2]) - remaining))
+                candidates = routes[:3]
 
-            # Give hub destinations a small boost by doubling their presence
-            # in the pick pool (~2x more likely to be chosen)
-            hub_candidates = [r for r in candidates if r[0] in hubs]
-            weighted_pool = candidates + hub_candidates
-            dest, ac, time = random.choice(weighted_pool)
-
+            dest, ac, time = random.choice(candidates)
             route_chain.append((current, dest, ac, time))
             total_minutes += parse_time(time)
-            visited.add(current)
-            last_visited = current
+            visited.add(current)   # block where we just were
+            last_visited = current  # track for bounce prevention
             current = dest
 
-        # Keep attempt with most legs; tiebreak by total time
         if len(route_chain) > len(best_chain) or (
             len(route_chain) == len(best_chain) and total_minutes > best_total
         ):
@@ -253,11 +215,9 @@ def generate():
         routes = get_direct_routes(airline, departure, None)
         if not routes:
             result = f"No routes found from {departure} for {airline}. Check the ICAO code."
-            route_chain_for_map = []
         else:
             dest, ac, time = random.choice(routes)
             result = f"{departure} → {dest} | {ac} | {time}"
-            route_chain_for_map = [(departure, dest, ac, time)]
 
     elif route_type == "single":
         if not aircraft:
@@ -276,14 +236,12 @@ def generate():
 
         if not chain:
             result = f"No routes found from {departure} with {aircraft} for {airline}."
-            route_chain_for_map = []
         else:
             result = ""
             for o, d, ac, t in chain:
                 result += f"{o} → {d} | {ac} | {t}\n"
             hours, minutes = total // 60, total % 60
             result += f"\nTotal Time: {hours:02d}:{minutes:02d}"
-            route_chain_for_map = chain
 
     elif route_type == "mixed":
         chain, total = generate_multi_leg(
@@ -292,18 +250,15 @@ def generate():
 
         if not chain:
             result = f"No routes found from {departure} for {airline}."
-            route_chain_for_map = []
         else:
             result = ""
             for o, d, ac, t in chain:
                 result += f"{o} → {d} | {ac} | {t}\n"
             hours, minutes = total // 60, total % 60
             result += f"\nTotal Time: {hours:02d}:{minutes:02d}"
-            route_chain_for_map = chain
 
     else:
         result = "Invalid route type"
-        route_chain_for_map = []
 
     return render_template(
         "route-form.html",
