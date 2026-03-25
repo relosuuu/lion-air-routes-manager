@@ -148,25 +148,44 @@ def generate_multi_leg(airline, departure, max_minutes=480, aircraft=None, allow
                     and parse_time(r[2]) <= remaining
                 ]
 
+            # In mixed mode, DB returns multiple rows per destination (one per
+            # aircraft type). Group by destination and pick one aircraft randomly
+            # so all airports get equal chance AND aircraft variety is preserved.
+            if allow_change:
+                dest_groups = {}
+                for r in forward_routes:
+                    dest = r[0]
+                    if dest not in dest_groups:
+                        dest_groups[dest] = []
+                    dest_groups[dest].append(r)
+                forward_routes = [random.choice(options) for options in dest_groups.values()]
+
             if not forward_routes:
                 break
 
             if remaining > 150:
-                # Prefer short legs to chain hops;
-                # if fewer than 2 short options exist, open up all lengths
-                short = [r for r in forward_routes if parse_time(r[2]) <= 120]
-                pool = short if len(short) >= 2 else forward_routes
-                pool = sorted(pool, key=lambda r: parse_time(r[2]))
-                candidates = pool[:5]
+                # Use all valid routes as the pool — no artificial slicing
+                # This ensures every reachable airport has a chance to be picked
+                pool = forward_routes
+
+                # Slightly prefer shorter legs by weighting: each route gets
+                # added extra times inversely proportional to its flight time
+                # so short legs are more likely but long legs still appear
+                weighted_pool = []
+                for r in pool:
+                    t = parse_time(r[2])
+                    # Mild preference for shorter legs: weight 2 if <=120 min,
+                    # weight 1 otherwise — keeps variety without heavy bias
+                    weight = 2 if t <= 120 else 1
+                    weighted_pool.extend([r] * weight)
             else:
                 # Pick leg closest to remaining time to fill schedule
                 forward_routes = sorted(forward_routes, key=lambda r: abs(parse_time(r[2]) - remaining))
-                candidates = forward_routes[:3]
+                weighted_pool = forward_routes[:5]
 
-            # Give hub destinations a small boost by doubling their presence
-            # in the pick pool (~2x more likely to be chosen)
-            hub_candidates = [r for r in candidates if r[0] in hubs]
-            weighted_pool = candidates + hub_candidates
+            # Give hub destinations an extra boost on top
+            hub_candidates = [r for r in weighted_pool if r[0] in hubs]
+            weighted_pool = weighted_pool + hub_candidates
             dest, ac, time = random.choice(weighted_pool)
 
             route_chain.append((current, dest, ac, time))
