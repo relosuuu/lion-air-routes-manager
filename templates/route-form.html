@@ -11,6 +11,13 @@
 
 <body>
 
+<script>
+  if (localStorage.getItem('darkMode') === 'true' ||
+     (localStorage.getItem('darkMode') === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.classList.add('dark');
+  }
+</script>
+
 <header class="topbar">
   <div class="nav-left">
     <a href="{{ url_for('airline_page', airline=airline) }}" class="back-btn">←</a>
@@ -22,6 +29,12 @@
       </div>
     </a>
   </div>
+  <button class="dark-toggle" onclick="toggleDark()" aria-label="Toggle dark mode">
+    <span class="dark-toggle-icon"></span>
+    <div class="dark-toggle-track">
+      <div class="dark-toggle-knob"></div>
+    </div>
+  </button>
 </header>
 
 <main class="container">
@@ -69,25 +82,17 @@
     const legs = {{ map_legs|safe }};
 
     const map = L.map('routeMap');
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // Draw route lines with arrows feel (dashed for multi-leg)
-    legs.forEach((leg, i) => {
-      L.polyline(leg, {
-        color: '#e11d48',
-        weight: 2.5,
-        opacity: 0.8
-      }).addTo(map);
+    legs.forEach((leg) => {
+      L.polyline(leg, { color: '#e11d48', weight: 2.5, opacity: 0.8 }).addTo(map);
     });
 
-    // Draw numbered markers with ICAO labels
     const bounds = [];
     airports.forEach((ap, i) => {
       bounds.push([ap.lat, ap.lon]);
-
       const icon = L.divIcon({
         className: '',
         html: `<div class="map-marker">
@@ -96,13 +101,10 @@
                </div>`,
         iconAnchor: [14, 14]
       });
-
       L.marker([ap.lat, ap.lon], { icon }).addTo(map);
     });
 
-    if (bounds.length > 0) {
-      map.fitBounds(bounds, { padding: [50, 50] });
-    }
+    if (bounds.length > 0) map.fitBounds(bounds, { padding: [50, 50] });
   </script>
   {% endif %}
   {% endif %}
@@ -118,6 +120,19 @@
   };
   document.getElementById("formTitle").textContent = titles[type] || "Route Generator";
   document.getElementById("pageSubtitle").textContent = titles[type] || "";
+
+  function toggleDark() {
+    const isDark = document.body.classList.toggle('dark');
+    localStorage.setItem('darkMode', isDark);
+    updateIcon();
+  }
+
+  function updateIcon() {
+    document.querySelector('.dark-toggle-icon').textContent =
+      document.body.classList.contains('dark') ? '🌙' : '☀️';
+  }
+
+  updateIcon();
 </script>
 
 </body>

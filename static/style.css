@@ -1,4 +1,54 @@
 /* ==============================
+   CSS VARIABLES (LIGHT MODE)
+   ============================== */
+:root {
+  --bg:           #f5f7fa;
+  --surface:      #ffffff;
+  --surface-alt:  #f8fafc;
+  --border:       #e2e8f0;
+  --border-focus: #e11d48;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted:   #64748b;
+  --accent:       #e11d48;
+  --accent-hover: #be123c;
+  --back-btn-bg:  #f1f5f9;
+  --back-btn-hover: #e2e8f0;
+  --shadow-sm:    0 2px 12px rgba(0,0,0,0.05);
+  --shadow-md:    0 12px 30px rgba(0,0,0,0.08);
+  --result-border: #e11d48;
+  --pre-color:    #1e293b;
+  --toggle-bg:    #e2e8f0;
+  --toggle-knob:  #ffffff;
+  --toggle-icon:  "☀️";
+}
+
+/* ==============================
+   DARK MODE VARIABLES
+   ============================== */
+body.dark,
+html.dark-pending body {
+  --bg:           #0f172a;
+  --surface:      #1e293b;
+  --surface-alt:  #0f172a;
+  --border:       #334155;
+  --border-focus: #e11d48;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted:   #c4cdd9;
+  --accent:       #e11d48;
+  --accent-hover: #be123c;
+  --back-btn-bg:  #334155;
+  --back-btn-hover: #475569;
+  --shadow-sm:    0 2px 12px rgba(0,0,0,0.3);
+  --shadow-md:    0 12px 30px rgba(0,0,0,0.4);
+  --result-border: #e11d48;
+  --pre-color:    #e2e8f0;
+  --toggle-bg:    #334155;
+  --toggle-knob:  #f1f5f9;
+}
+
+/* ==============================
    GLOBAL STYLES
    ============================== */
 * {
@@ -9,8 +59,9 @@
 }
 
 body {
-  background: #f5f7fa;
-  color: #0f172a;
+  background: var(--bg);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* ==============================
@@ -20,9 +71,13 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: white;
+  background: var(--surface);
   padding: 16px 32px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .brand {
@@ -40,9 +95,68 @@ body {
   object-fit: contain;
 }
 
+.brand-text strong {
+  color: var(--text-primary);
+}
+
 .brand-text span {
   font-size: 12px;
-  color: #64748b;
+  color: var(--text-muted);
+}
+
+/* ==============================
+   DARK MODE TOGGLE
+   ============================== */
+.dark-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+  z-index: 10;
+  position: relative;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  background: none;
+  border: none;
+  padding: 4px;
+  border-radius: 8px;
+  outline: none;
+}
+
+.dark-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+}
+
+.dark-toggle-track {
+  width: 44px;
+  height: 24px;
+  background: var(--toggle-bg);
+  border-radius: 999px;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.dark-toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: var(--toggle-knob);
+  border-radius: 50%;
+  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+body.dark .dark-toggle-knob {
+  transform: translateX(20px);
+}
+
+.dark-toggle-icon {
+  font-size: 16px;
+  line-height: 1;
+  user-select: none;
 }
 
 /* ==============================
@@ -59,20 +173,20 @@ body {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: #0f172a;
+  color: var(--text-primary);
   flex-shrink: 0;
   width: 44px;
   height: 44px;
   border-radius: 50%;
   border: none;
-  background: #f1f5f9;
+  background: var(--back-btn-bg);
   font-size: 20px;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: background 0.2s ease;
 }
 
 .back-btn:hover {
-  background: #e2e8f0;
+  background: var(--back-btn-hover);
 }
 
 /* ==============================
@@ -93,7 +207,7 @@ body {
 
 /* Airline Card */
 .airline-card {
-  background: white;
+  background: var(--surface);
   border-radius: 20px;
   padding: 24px 32px;
   display: grid;
@@ -101,8 +215,8 @@ body {
   align-items: center;
   gap: 24px;
   text-decoration: none;
-  color: inherit;
-  transition: 0.25s ease;
+  color: var(--text-primary);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
 }
 
 .airline-card img {
@@ -114,7 +228,7 @@ body {
 
 .airline-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-md);
 }
 
 /* Option Card */
@@ -122,7 +236,7 @@ body {
 .option-card:visited,
 .option-card:hover,
 .option-card:active {
-  background: white;
+  background: var(--surface);
   border-radius: 20px;
   padding: 28px 32px;
   display: grid;
@@ -130,7 +244,8 @@ body {
   align-items: center;
   gap: 24px;
   text-decoration: none;
-  color: inherit;
+  color: var(--text-primary);
+  transition: background 0.3s ease;
 }
 
 .option-card h2 {
@@ -140,12 +255,12 @@ body {
 
 .option-card p {
   font-size: 14px;
-  color: #475569;
+  color: var(--text-secondary);
   max-width: 500px;
 }
 
 .option-card:hover {
-  outline: 2px solid #e11d48;
+  outline: 2px solid var(--accent);
 }
 
 /* Selected Airline */
@@ -153,10 +268,11 @@ body {
   display: flex;
   align-items: center;
   gap: 24px;
-  background: white;
+  background: var(--surface);
   padding: 24px 32px;
   border-radius: 20px;
   margin: 32px 0 40px;
+  transition: background 0.3s ease;
 }
 
 .selected-airline img {
@@ -175,12 +291,13 @@ body {
    FORM CARD
    ============================== */
 .form-card {
-  background: white;
+  background: var(--surface);
   border-radius: 20px;
   padding: 36px 40px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  transition: background 0.3s ease;
 }
 
 .form-card h1 {
@@ -193,7 +310,7 @@ body {
   display: block;
   font-size: 13px;
   font-weight: 600;
-  color: #475569;
+  color: var(--text-secondary);
   margin-bottom: 6px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -203,19 +320,19 @@ body {
 .form-card select {
   width: 100%;
   padding: 12px 16px;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
   border-radius: 12px;
   font-size: 15px;
-  color: #0f172a;
-  background: #f8fafc;
-  transition: border-color 0.2s;
+  color: var(--text-primary);
+  background: var(--surface-alt);
+  transition: border-color 0.2s, background 0.3s ease, color 0.3s ease;
   outline: none;
 }
 
 .form-card input[type="text"]:focus,
 .form-card select:focus {
-  border-color: #e11d48;
-  background: white;
+  border-color: var(--border-focus);
+  background: var(--surface);
 }
 
 /* ==============================
@@ -224,7 +341,7 @@ body {
 .primary-btn {
   margin-top: 8px;
   padding: 14px 28px;
-  background: #e11d48;
+  background: var(--accent);
   color: white;
   font-size: 15px;
   font-weight: 600;
@@ -236,7 +353,7 @@ body {
 }
 
 .primary-btn:hover {
-  background: #be123c;
+  background: var(--accent-hover);
   transform: translateY(-1px);
 }
 
@@ -244,24 +361,25 @@ body {
    RESULT CARD
    ============================== */
 .result-card {
-  background: white;
+  background: var(--surface);
   border-radius: 20px;
   padding: 36px 40px;
-  border-left: 5px solid #e11d48;
+  border-left: 5px solid var(--result-border);
+  transition: background 0.3s ease;
 }
 
 .result-card h2 {
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 16px;
-  color: #0f172a;
+  color: var(--text-primary);
 }
 
 .result-card pre {
   font-family: 'Courier New', Courier, monospace;
   font-size: 15px;
   line-height: 1.9;
-  color: #1e293b;
+  color: var(--pre-color);
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -276,7 +394,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e11d48;
+  background: var(--accent);
   color: white;
   font-size: 24px;
   font-weight: 600;
@@ -287,7 +405,7 @@ body {
 }
 
 .go-btn:hover {
-  background: #be123c;
+  background: var(--accent-hover);
   transform: scale(1.05);
 }
 
@@ -298,7 +416,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e11d48;
+  background: var(--accent);
   color: white;
   font-size: 22px;
 }
@@ -308,7 +426,7 @@ body {
    ============================== */
 .footer-text {
   text-align: center;
-  color: #475569;
+  color: var(--text-secondary);
   margin-bottom: 40px;
 }
 
@@ -346,7 +464,7 @@ body {
 }
 
 /* ==============================
-   INPUT ROW (departure + auto btn)
+   INPUT ROW
    ============================== */
 .input-row {
   display: flex;
@@ -360,20 +478,20 @@ body {
 
 .auto-btn {
   padding: 12px 18px;
-  background: #f1f5f9;
-  border: 1.5px solid #e2e8f0;
+  background: var(--back-btn-bg);
+  border: 1.5px solid var(--border);
   border-radius: 12px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  color: #0f172a;
+  color: var(--text-primary);
   white-space: nowrap;
   transition: background 0.2s, border-color 0.2s;
 }
 
 .auto-btn:hover {
-  background: #e2e8f0;
-  border-color: #cbd5e1;
+  background: var(--back-btn-hover);
+  border-color: var(--border);
 }
 
 .auto-btn:disabled {
@@ -385,18 +503,19 @@ body {
    MAP CARD
    ============================== */
 .map-card {
-  background: white;
+  background: var(--surface);
   border-radius: 20px;
   padding: 36px 40px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  transition: background 0.3s ease;
 }
 
 .map-card h2 {
   font-size: 18px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-primary);
 }
 
 #routeMap {
@@ -404,77 +523,7 @@ body {
   height: 420px;
   border-radius: 14px;
   overflow: hidden;
-  border: 1.5px solid #e2e8f0;
-}
-
-/* Marker styles */
-.map-marker {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-}
-
-.marker-dot {
-  width: 28px;
-  height: 28px;
-  background: #e11d48;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  border: 2px solid white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-}
-
-.marker-label {
-  background: white;
-  color: #0f172a;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-  white-space: nowrap;
-}
-
-@media (max-width: 768px) {
-  #routeMap {
-    height: 300px;
-  }
-
-  .map-card {
-    padding: 24px 20px;
-  }
-}
-
-/* ==============================
-   MAP CARD
-   ============================== */
-.map-card {
-  background: white;
-  border-radius: 20px;
-  padding: 36px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.map-card h2 {
-  font-size: 18px;
-  font-weight: 700;
-  color: #0f172a;
-}
-
-#routeMap {
-  width: 100%;
-  height: 420px;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid var(--border);
 }
 
 .map-marker {

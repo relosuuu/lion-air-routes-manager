@@ -8,53 +8,79 @@
 </head>
 <body>
 
+<script>
+  if (localStorage.getItem('darkMode') === 'true' ||
+     (localStorage.getItem('darkMode') === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.classList.add('dark');
+  }
+</script>
+
 <header class="topbar">
-  <a href="index.html" class="brand">
+  <a href="{{ url_for('index') }}" class="brand">
     <img src="{{ url_for('static', filename='assets/logo.webp') }}" alt="Lion Group VA">
     <div class="brand-text">
       <strong>Lion Group VA</strong>
       <span>Virtual Airlines</span>
     </div>
   </a>
+  <button class="dark-toggle" onclick="toggleDark()" aria-label="Toggle dark mode">
+    <span class="dark-toggle-icon"></span>
+    <div class="dark-toggle-track">
+      <div class="dark-toggle-knob"></div>
+    </div>
+  </button>
 </header>
 
 <main class="container">
 
   <a href="{{ url_for('airline_page', airline='lion') }}" class="airline-card">
-  <img src="{{ url_for('static', filename='assets/lion-air.png') }}" alt="Lion Air">
-  <h2>Lion Air</h2>
-  <span class="arrow">→</span>
-</a>
+    <img src="{{ url_for('static', filename='assets/lion-air.png') }}" alt="Lion Air">
+    <h2>Lion Air</h2>
+    <span class="arrow">→</span>
+  </a>
 
-<a href="{{ url_for('airline_page', airline='batik') }}" class="airline-card">
-  <img src="{{ url_for('static', filename='assets/batik-air.png') }}" alt="Batik Air">
-  <h2>Batik Air</h2>
-  <span class="arrow">→</span>
-</a>
+  <a href="{{ url_for('airline_page', airline='batik') }}" class="airline-card">
+    <img src="{{ url_for('static', filename='assets/batik-air.png') }}" alt="Batik Air">
+    <h2>Batik Air</h2>
+    <span class="arrow">→</span>
+  </a>
 
-<a href="{{ url_for('airline_page', airline='super') }}" class="airline-card">
-  <img src="{{ url_for('static', filename='assets/superairjet.png') }}" alt="Super Air Jet">
-  <h2>Super Air Jet</h2>
-  <span class="arrow">→</span>
-</a>
+  <a href="{{ url_for('airline_page', airline='super') }}" class="airline-card">
+    <img src="{{ url_for('static', filename='assets/superairjet.png') }}" alt="Super Air Jet">
+    <h2>Super Air Jet</h2>
+    <span class="arrow">→</span>
+  </a>
 
-<a href="{{ url_for('airline_page', airline='wings') }}" class="airline-card">
-  <img src="{{ url_for('static', filename='assets/wings-air.png') }}" alt="Wings Air">
-  <h2>Wings Air</h2>
-  <span class="arrow">→</span>
-</a>
+  <a href="{{ url_for('airline_page', airline='wings') }}" class="airline-card">
+    <img src="{{ url_for('static', filename='assets/wings-air.png') }}" alt="Wings Air">
+    <h2>Wings Air</h2>
+    <span class="arrow">→</span>
+  </a>
 
-<a href="{{ url_for('airline_page', airline='thai') }}" class="airline-card">
-  <img src="{{ url_for('static', filename='assets/thai_lion.png') }}" alt="Thai Lion">
-  <h2>Thai Lion</h2>
-  <span class="arrow">→</span>
-</a>
+  <a href="{{ url_for('airline_page', airline='thai') }}" class="airline-card">
+    <img src="{{ url_for('static', filename='assets/thai_lion.png') }}" alt="Thai Lion">
+    <h2>Thai Lion</h2>
+    <span class="arrow">→</span>
+  </a>
 
 </main>
 
-<p class="footer-text">
-  Select an airline above to explore their complete route network and destinations
-</p>
+<p class="footer-text">Select an airline above to explore their complete route network and destinations</p>
+
+<script>
+  function toggleDark() {
+    const isDark = document.body.classList.toggle('dark');
+    localStorage.setItem('darkMode', isDark);
+    updateIcon();
+  }
+
+  function updateIcon() {
+    document.querySelector('.dark-toggle-icon').textContent =
+      document.body.classList.contains('dark') ? '🌙' : '☀️';
+  }
+
+  updateIcon();
+</script>
 
 </body>
 </html>
