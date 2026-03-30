@@ -35,7 +35,7 @@ html.dark-pending body {
   --border-focus: #e11d48;
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
-  --text-muted:   #c4cdd9;
+  --text-muted:   #64748b;
   --accent:       #e11d48;
   --accent-hover: #be123c;
   --back-btn-bg:  #334155;
@@ -434,32 +434,142 @@ body.dark .dark-toggle-knob {
    RESPONSIVE
    ============================== */
 @media (max-width: 768px) {
+
+  /* Topbar */
+  .topbar {
+    padding: 10px 16px;
+  }
+
+  .brand img,
+  #airlineLogo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand-text strong {
+    font-size: 14px;
+  }
+
+  .brand-text span {
+    font-size: 11px;
+  }
+
+  .dark-toggle-icon {
+    display: none; /* hide emoji on mobile, keep just the track */
+  }
+
+  .back-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 17px;
+  }
+
+  /* Container */
+  .container {
+    margin: 16px auto;
+    gap: 12px;
+    padding: 0 12px;
+  }
+
+  /* Airline card — horizontal compact row */
   .airline-card {
-    grid-template-columns: 1fr;
-    text-align: center;
+    grid-template-columns: 100px 1fr 40px;
+    padding: 16px 20px;
+    gap: 12px;
+    border-radius: 16px;
   }
 
-  .option-card {
-    grid-template-columns: 1fr;
-    text-align: center;
+  .airline-card img {
+    max-width: 100px;
   }
 
-  .go-btn {
-    margin: auto;
+  .airline-card h2 {
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
   }
 
-  .option-card .go-btn {
-    margin: auto;
+  .airline-card .arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    flex-shrink: 0;
   }
 
-  .form-card,
+  /* Option card — horizontal compact row */
+  .option-card,
+  .option-card:visited,
+  .option-card:hover,
+  .option-card:active {
+    padding: 18px 20px;
+    gap: 12px;
+    border-radius: 16px;
+  }
+
+  .option-card h2 {
+    font-size: 16px;
+    margin-bottom: 3px;
+  }
+
+  .option-card p {
+    font-size: 13px;
+  }
+
+  .option-card .arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  /* Selected airline banner */
+  .selected-airline {
+    padding: 16px 20px;
+    margin: 0 0 4px;
+    gap: 16px;
+    border-radius: 16px;
+  }
+
+  .selected-airline img {
+    width: 90px;
+  }
+
+  .selected-airline h1 {
+    font-size: 20px;
+  }
+
+  /* Form & result cards */
+  .form-card {
+    padding: 20px 16px;
+    border-radius: 16px;
+    gap: 14px;
+  }
+
+  .form-card h1 {
+    font-size: 18px;
+  }
+
   .result-card {
-    padding: 24px 20px;
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .result-card pre {
+    font-size: 13px;
+    line-height: 1.8;
   }
 
   .primary-btn {
     width: 100%;
     text-align: center;
+    padding: 13px;
+  }
+
+  /* Footer */
+  .footer-text {
+    font-size: 13px;
+    padding: 0 16px;
+    margin-bottom: 24px;
   }
 }
 
@@ -560,6 +670,9 @@ body.dark .dark-toggle-knob {
 }
 
 @media (max-width: 768px) {
-  #routeMap { height: 300px; }
-  .map-card { padding: 24px 20px; }
+  #routeMap { height: 260px; }
+  .map-card {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
 }
